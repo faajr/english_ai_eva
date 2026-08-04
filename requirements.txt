@@ -1,0 +1,6 @@
+streamlit>=1.39.0
+pandas
+sqlalchemy
+google-genai
+openai
+python-dotenv
