@@ -9,12 +9,15 @@ load_dotenv()
 
 import streamlit as st
 
-def get_gemini_client():
-    api_key = st.session_state.get("GEMINI_API_KEY") or os.environ.get("GEMINI_API_KEY")
+def get_openrouter_client():
+    api_key = st.session_state.get("OPENROUTER_API_KEY") or os.environ.get("OPENROUTER_API_KEY")
     if not api_key:
         return None, "API key is empty."
     try:
-        client = genai.Client(api_key=api_key)
+        client = OpenAI(
+            base_url="https://openrouter.ai/api/v1",
+            api_key=api_key,
+        )
         return client, None
     except Exception as e:
         return None, str(e)
@@ -32,11 +35,11 @@ def get_openai_client():
 
 def evaluate_writing(text: str):
     """
-    Evaluates English writing using Gemini.
+    Evaluates English writing using OpenRouter (Gemini model).
     """
-    gemini_client, err = get_gemini_client()
-    if not gemini_client:
-        return {"error": f"Gemini API key is not configured properly. Details: {err}"}
+    client, err = get_openrouter_client()
+    if not client:
+        return {"error": f"OpenRouter API key is not configured properly. Details: {err}"}
         
     prompt = f"""
     You are an expert English language evaluator. Evaluate the following text written by an English learner.
@@ -57,13 +60,13 @@ def evaluate_writing(text: str):
     """
     
     try:
-        response = gemini_client.models.generate_content(
-            model='gemini-2.5-pro',
-            contents=prompt,
+        response = client.chat.completions.create(
+            model="google/gemini-2.5-pro",
+            messages=[{"role": "user", "content": prompt}],
         )
         
         # Parse JSON
-        result_text = response.text.strip()
+        result_text = response.choices[0].message.content.strip()
         if result_text.startswith("```json"):
             result_text = result_text[7:-3].strip()
         elif result_text.startswith("```"):
@@ -97,11 +100,11 @@ def speech_to_text(audio_file_path: str):
 
 def evaluate_speaking(transcript: str):
     """
-    Evaluates English speaking (from transcript) using Gemini.
+    Evaluates English speaking (from transcript) using OpenRouter (Gemini model).
     """
-    gemini_client, err = get_gemini_client()
-    if not gemini_client:
-        return {"error": f"Gemini API key is not configured properly. Details: {err}"}
+    client, err = get_openrouter_client()
+    if not client:
+        return {"error": f"OpenRouter API key is not configured properly. Details: {err}"}
         
     prompt = f"""
     You are an expert English language evaluator. Evaluate the following speaking transcript from an English learner.
@@ -123,13 +126,13 @@ def evaluate_speaking(transcript: str):
     """
     
     try:
-        response = gemini_client.models.generate_content(
-            model='gemini-2.5-pro',
-            contents=prompt,
+        response = client.chat.completions.create(
+            model="google/gemini-2.5-pro",
+            messages=[{"role": "user", "content": prompt}],
         )
         
         # Parse JSON
-        result_text = response.text.strip()
+        result_text = response.choices[0].message.content.strip()
         if result_text.startswith("```json"):
             result_text = result_text[7:-3].strip()
         elif result_text.startswith("```"):
