@@ -7,27 +7,36 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Initialize API Clients
-try:
-    # Use google-genai SDK
-    gemini_client = genai.Client() # Assumes GEMINI_API_KEY is in environment
-except Exception as e:
-    print(f"Warning: Gemini Client not initialized. {e}")
-    gemini_client = None
+import streamlit as st
 
-try:
-    openai_client = OpenAI() # Assumes OPENAI_API_KEY is in environment
-except Exception as e:
-    print(f"Warning: OpenAI Client not initialized. {e}")
-    openai_client = None
+def get_gemini_client():
+    api_key = st.session_state.get("GEMINI_API_KEY") or os.environ.get("GEMINI_API_KEY")
+    if not api_key:
+        return None, "API key is empty."
+    try:
+        client = genai.Client(api_key=api_key)
+        return client, None
+    except Exception as e:
+        return None, str(e)
+
+def get_openai_client():
+    api_key = st.session_state.get("OPENAI_API_KEY") or os.environ.get("OPENAI_API_KEY")
+    if not api_key:
+        return None, "API key is empty."
+    try:
+        client = OpenAI(api_key=api_key)
+        return client, None
+    except Exception as e:
+        return None, str(e)
 
 
 def evaluate_writing(text: str):
     """
     Evaluates English writing using Gemini.
     """
+    gemini_client, err = get_gemini_client()
     if not gemini_client:
-        return {"error": "Gemini API key is not configured properly."}
+        return {"error": f"Gemini API key is not configured properly. Details: {err}"}
         
     prompt = f"""
     You are an expert English language evaluator. Evaluate the following text written by an English learner.
@@ -70,8 +79,9 @@ def speech_to_text(audio_file_path: str):
     """
     Transcribes audio to text using OpenAI Whisper API.
     """
+    openai_client, err = get_openai_client()
     if not openai_client:
-        return {"error": "OpenAI API key is not configured properly."}
+        return {"error": f"OpenAI API key is not configured properly. Details: {err}"}
         
     try:
         with open(audio_file_path, "rb") as audio_file:
@@ -89,8 +99,9 @@ def evaluate_speaking(transcript: str):
     """
     Evaluates English speaking (from transcript) using Gemini.
     """
+    gemini_client, err = get_gemini_client()
     if not gemini_client:
-        return {"error": "Gemini API key is not configured properly."}
+        return {"error": f"Gemini API key is not configured properly. Details: {err}"}
         
     prompt = f"""
     You are an expert English language evaluator. Evaluate the following speaking transcript from an English learner.
