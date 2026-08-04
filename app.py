@@ -8,128 +8,125 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS - "hi-tech dark futuristic" theme with neon accents & glassmorphism
+# Custom CSS for "modern hi tech"
 st.markdown("""
 <style>
-    /* Fonts: Space Grotesk for headers (techy), Inter for body */
-    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
-
+    /* Global font and background */
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Inter:wght@300;400;500;600&display=swap');
+    
     html, body, [class*="css"]  {
         font-family: 'Inter', sans-serif;
+        color: #e0e0e0;
     }
-
-    /* Main background - deep space navy with subtle radial glow */
+    
+    /* Main background */
     .stApp {
-        background:
-            radial-gradient(circle at 15% 10%, rgba(0, 229, 255, 0.08) 0%, transparent 40%),
-            radial-gradient(circle at 85% 90%, rgba(157, 78, 255, 0.10) 0%, transparent 45%),
-            linear-gradient(180deg, #05070d 0%, #0a0e17 100%);
-        color: #e6edf5;
+        background-color: #0b0f19;
+        background-image: 
+            radial-gradient(circle at 15% 50%, rgba(0, 255, 255, 0.05), transparent 25%),
+            radial-gradient(circle at 85% 30%, rgba(138, 43, 226, 0.05), transparent 25%);
     }
-
-    /* Sidebar - glass panel */
+    
+    /* Sidebar */
     [data-testid="stSidebar"] {
-        background: rgba(13, 18, 30, 0.85);
-        backdrop-filter: blur(16px);
-        border-right: 1px solid rgba(0, 229, 255, 0.15);
+        background-color: rgba(15, 23, 42, 0.8) !important;
+        border-right: 1px solid rgba(0, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
     }
-
-    [data-testid="stSidebar"] * {
-        color: #c9d6e8 !important;
-    }
-
-    /* Headers - gradient neon text */
+    
+    /* Headers */
     h1, h2, h3, h4, h5, h6 {
-        font-family: 'Space Grotesk', sans-serif;
-        font-weight: 600;
-        background: linear-gradient(90deg, #00e5ff 0%, #9d4eff 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        letter-spacing: 0.3px;
+        font-family: 'Orbitron', sans-serif;
+        color: #00ffff;
+        font-weight: 500;
+        text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+        letter-spacing: 1px;
     }
-
-    /* Body text */
-    p, span, label, .stMarkdown {
-        color: #c9d6e8;
-    }
-
-    /* Buttons - neon glass */
+    
+    /* Buttons */
     .stButton>button {
-        background: linear-gradient(135deg, rgba(0, 229, 255, 0.15), rgba(157, 78, 255, 0.15));
-        color: #00e5ff;
-        border-radius: 10px;
-        border: 1px solid rgba(0, 229, 255, 0.4);
-        padding: 0.55rem 1.1rem;
+        background: linear-gradient(90deg, #0f172a 0%, #1e293b 100%);
+        color: #00ffff;
+        border-radius: 4px;
+        border: 1px solid rgba(0, 255, 255, 0.5);
+        padding: 0.5rem 1rem;
         font-weight: 600;
-        letter-spacing: 0.3px;
-        transition: all 0.25s ease;
-        box-shadow: 0 0 0 rgba(0, 229, 255, 0);
+        font-family: 'Orbitron', sans-serif;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 10px rgba(0, 255, 255, 0.1);
     }
-
+    
     .stButton>button:hover {
-        background: linear-gradient(135deg, rgba(0, 229, 255, 0.3), rgba(157, 78, 255, 0.3));
-        border-color: rgba(0, 229, 255, 0.8);
-        color: #ffffff;
+        background: linear-gradient(90deg, #1e293b 0%, #0f172a 100%);
         transform: translateY(-2px);
-        box-shadow: 0 4px 20px rgba(0, 229, 255, 0.35);
+        box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+        border-color: #00ffff;
+        color: #ffffff;
     }
-
-    /* Text areas and inputs - dark glass fields with neon focus ring */
+    
+    /* Text areas and inputs */
     .stTextArea>div>div>textarea, .stTextInput>div>div>input {
-        font-family: 'JetBrains Mono', monospace;
-        border-radius: 10px;
-        border: 1px solid rgba(0, 229, 255, 0.2);
-        background-color: rgba(13, 18, 30, 0.75);
-        color: #e6edf5;
-        padding: 0.85rem;
+        border-radius: 4px;
+        border: 1px solid rgba(0, 255, 255, 0.2);
+        background-color: rgba(15, 23, 42, 0.6);
+        color: #00ffff;
+        padding: 0.75rem;
+        font-family: 'Inter', sans-serif;
     }
-
+    
     .stTextArea>div>div>textarea:focus, .stTextInput>div>div>input:focus {
-        border-color: #00e5ff;
-        box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.2);
+        border-color: #00ffff;
+        box-shadow: 0 0 0 2px rgba(0, 255, 255, 0.2);
     }
 
-    /* Cards / Containers - glassmorphism with neon border glow */
+    /* Cards / Containers */
     div[data-testid="stVerticalBlock"] > div[style*="flex-direction: column;"] > div[data-testid="stVerticalBlock"] {
-        background: rgba(17, 22, 36, 0.65);
-        backdrop-filter: blur(14px);
+        background: rgba(15, 23, 42, 0.4);
         padding: 2rem;
-        border-radius: 16px;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(0, 229, 255, 0.08) inset;
-        border: 1px solid rgba(0, 229, 255, 0.15);
+        border-radius: 8px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(0, 255, 255, 0.1);
+        backdrop-filter: blur(5px);
     }
-
+    
     /* Metrics */
-    [data-testid="stMetric"] {
-        background: rgba(17, 22, 36, 0.65);
-        border: 1px solid rgba(157, 78, 255, 0.25);
-        border-radius: 12px;
-        padding: 1rem;
-    }
-
     [data-testid="stMetricValue"] {
-        color: #00e5ff;
-        font-family: 'Space Grotesk', sans-serif;
+        color: #00ffff !important;
+        font-family: 'Orbitron', sans-serif;
     }
-
-    /* Dataframes / tables */
-    [data-testid="stDataFrame"] {
-        border: 1px solid rgba(0, 229, 255, 0.15);
-        border-radius: 10px;
+    [data-testid="stMetricLabel"] {
+        color: #94a3b8 !important;
     }
-
-    /* Progress bar */
-    .stProgress > div > div > div {
-        background: linear-gradient(90deg, #00e5ff, #9d4eff);
+    
+    /* Metric Card styling via Streamlit is tricky, but we target its parent if possible. 
+       We rely on general text coloring for metrics. */
+       
+    /* Override markdown text colors */
+    .stMarkdown, p, li {
+        color: #cbd5e1;
     }
-
-    /* Divider glow */
-    hr {
-        border-color: rgba(0, 229, 255, 0.2);
+    
+    /* Info / Success alerts */
+    .stAlert {
+        background-color: rgba(15, 23, 42, 0.8) !important;
+        border: 1px solid rgba(0, 255, 255, 0.3) !important;
+        color: #e0e0e0 !important;
     }
 </style>
 """, unsafe_allow_html=True)
+
+# API Key Configuration in Sidebar
+with st.sidebar:
+    st.markdown("### ⚙️ API Configuration")
+    gemini_key = st.text_input("Gemini API Key", type="password", value=st.session_state.get("GEMINI_API_KEY", ""))
+    if gemini_key:
+        st.session_state["GEMINI_API_KEY"] = gemini_key
+        
+    openai_key = st.text_input("OpenAI API Key (Optional for STT)", type="password", value=st.session_state.get("OPENAI_API_KEY", ""))
+    if openai_key:
+        st.session_state["OPENAI_API_KEY"] = openai_key
+        
+    st.markdown("---")
 
 # Define Pages
 home_page = st.Page("pages/home.py", title="Home", icon="🏠", default=True)
