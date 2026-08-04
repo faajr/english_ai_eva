@@ -123,10 +123,6 @@ with st.sidebar:
     if openrouter_key:
         st.session_state["OPENROUTER_API_KEY"] = openrouter_key
         
-    openai_key = st.text_input("OpenAI API Key (Optional for STT)", type="password", value=st.session_state.get("OPENAI_API_KEY", ""))
-    if openai_key:
-        st.session_state["OPENAI_API_KEY"] = openai_key
-        
     st.markdown("---")
 
 # Define Pages
