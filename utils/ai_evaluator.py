@@ -8,6 +8,12 @@ from dotenv import load_dotenv
 load_dotenv()
 
 import streamlit as st
+import whisper
+
+@st.cache_resource
+def load_whisper_model():
+    # Load the base whisper model (you can change to 'tiny' for speed or 'small' for better accuracy)
+    return whisper.load_model("base")
 
 def get_openrouter_client():
     api_key = st.session_state.get("OPENROUTER_API_KEY") or os.environ.get("OPENROUTER_API_KEY")
@@ -22,15 +28,6 @@ def get_openrouter_client():
     except Exception as e:
         return None, str(e)
 
-def get_openai_client():
-    api_key = st.session_state.get("OPENAI_API_KEY") or os.environ.get("OPENAI_API_KEY")
-    if not api_key:
-        return None, "API key is empty."
-    try:
-        client = OpenAI(api_key=api_key)
-        return client, None
-    except Exception as e:
-        return None, str(e)
 
 
 def evaluate_writing(text: str):
@@ -80,20 +77,12 @@ def evaluate_writing(text: str):
 
 def speech_to_text(audio_file_path: str):
     """
-    Transcribes audio to text using OpenAI Whisper API.
+    Transcribes audio to text using Local Whisper model.
     """
-    openai_client, err = get_openai_client()
-    if not openai_client:
-        return {"error": f"OpenAI API key is not configured properly. Details: {err}"}
-        
     try:
-        with open(audio_file_path, "rb") as audio_file:
-            transcription = openai_client.audio.transcriptions.create(
-                model="whisper-1", 
-                file=audio_file,
-                response_format="text"
-            )
-        return {"transcript": transcription}
+        model = load_whisper_model()
+        result = model.transcribe(audio_file_path)
+        return {"transcript": result["text"]}
     except Exception as e:
         return {"error": str(e)}
 
