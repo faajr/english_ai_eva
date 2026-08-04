@@ -8,71 +8,125 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS for "modern hi tech simple colour pastel minimalist"
+# Custom CSS - "hi-tech dark futuristic" theme with neon accents & glassmorphism
 st.markdown("""
 <style>
-    /* Global font and background */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-    
+    /* Fonts: Space Grotesk for headers (techy), Inter for body */
+    @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
     html, body, [class*="css"]  {
         font-family: 'Inter', sans-serif;
     }
-    
-    /* Main background */
+
+    /* Main background - deep space navy with subtle radial glow */
     .stApp {
-        background-color: #fcfcfc;
-    }
-    
-    /* Sidebar */
-    [data-testid="stSidebar"] {
-        background-color: #f4f6fa;
-        border-right: 1px solid #e1e4e8;
-    }
-    
-    /* Headers */
-    h1, h2, h3, h4, h5, h6 {
-        color: #2c3e50;
-        font-weight: 600;
-    }
-    
-    /* Buttons */
-    .stButton>button {
-        background-color: #b5c7d3; /* Pastel blue-grey */
-        color: #2c3e50;
-        border-radius: 8px;
-        border: none;
-        padding: 0.5rem 1rem;
-        font-weight: 500;
-        transition: all 0.3s ease;
-    }
-    
-    .stButton>button:hover {
-        background-color: #9cb1bf;
-        transform: translateY(-2px);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        color: #1a252f;
-    }
-    
-    /* Text areas and inputs */
-    .stTextArea>div>div>textarea, .stTextInput>div>div>input {
-        border-radius: 8px;
-        border: 1px solid #e1e4e8;
-        background-color: #ffffff;
-        padding: 0.75rem;
-    }
-    
-    .stTextArea>div>div>textarea:focus, .stTextInput>div>div>input:focus {
-        border-color: #b5c7d3;
-        box-shadow: 0 0 0 2px rgba(181, 199, 211, 0.2);
+        background:
+            radial-gradient(circle at 15% 10%, rgba(0, 229, 255, 0.08) 0%, transparent 40%),
+            radial-gradient(circle at 85% 90%, rgba(157, 78, 255, 0.10) 0%, transparent 45%),
+            linear-gradient(180deg, #05070d 0%, #0a0e17 100%);
+        color: #e6edf5;
     }
 
-    /* Cards / Containers */
+    /* Sidebar - glass panel */
+    [data-testid="stSidebar"] {
+        background: rgba(13, 18, 30, 0.85);
+        backdrop-filter: blur(16px);
+        border-right: 1px solid rgba(0, 229, 255, 0.15);
+    }
+
+    [data-testid="stSidebar"] * {
+        color: #c9d6e8 !important;
+    }
+
+    /* Headers - gradient neon text */
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Space Grotesk', sans-serif;
+        font-weight: 600;
+        background: linear-gradient(90deg, #00e5ff 0%, #9d4eff 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        letter-spacing: 0.3px;
+    }
+
+    /* Body text */
+    p, span, label, .stMarkdown {
+        color: #c9d6e8;
+    }
+
+    /* Buttons - neon glass */
+    .stButton>button {
+        background: linear-gradient(135deg, rgba(0, 229, 255, 0.15), rgba(157, 78, 255, 0.15));
+        color: #00e5ff;
+        border-radius: 10px;
+        border: 1px solid rgba(0, 229, 255, 0.4);
+        padding: 0.55rem 1.1rem;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+        transition: all 0.25s ease;
+        box-shadow: 0 0 0 rgba(0, 229, 255, 0);
+    }
+
+    .stButton>button:hover {
+        background: linear-gradient(135deg, rgba(0, 229, 255, 0.3), rgba(157, 78, 255, 0.3));
+        border-color: rgba(0, 229, 255, 0.8);
+        color: #ffffff;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 20px rgba(0, 229, 255, 0.35);
+    }
+
+    /* Text areas and inputs - dark glass fields with neon focus ring */
+    .stTextArea>div>div>textarea, .stTextInput>div>div>input {
+        font-family: 'JetBrains Mono', monospace;
+        border-radius: 10px;
+        border: 1px solid rgba(0, 229, 255, 0.2);
+        background-color: rgba(13, 18, 30, 0.75);
+        color: #e6edf5;
+        padding: 0.85rem;
+    }
+
+    .stTextArea>div>div>textarea:focus, .stTextInput>div>div>input:focus {
+        border-color: #00e5ff;
+        box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.2);
+    }
+
+    /* Cards / Containers - glassmorphism with neon border glow */
     div[data-testid="stVerticalBlock"] > div[style*="flex-direction: column;"] > div[data-testid="stVerticalBlock"] {
-        background: white;
+        background: rgba(17, 22, 36, 0.65);
+        backdrop-filter: blur(14px);
         padding: 2rem;
+        border-radius: 16px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.35), 0 0 0 1px rgba(0, 229, 255, 0.08) inset;
+        border: 1px solid rgba(0, 229, 255, 0.15);
+    }
+
+    /* Metrics */
+    [data-testid="stMetric"] {
+        background: rgba(17, 22, 36, 0.65);
+        border: 1px solid rgba(157, 78, 255, 0.25);
         border-radius: 12px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.03);
-        border: 1px solid #f0f2f5;
+        padding: 1rem;
+    }
+
+    [data-testid="stMetricValue"] {
+        color: #00e5ff;
+        font-family: 'Space Grotesk', sans-serif;
+    }
+
+    /* Dataframes / tables */
+    [data-testid="stDataFrame"] {
+        border: 1px solid rgba(0, 229, 255, 0.15);
+        border-radius: 10px;
+    }
+
+    /* Progress bar */
+    .stProgress > div > div > div {
+        background: linear-gradient(90deg, #00e5ff, #9d4eff);
+    }
+
+    /* Divider glow */
+    hr {
+        border-color: rgba(0, 229, 255, 0.2);
     }
 </style>
 """, unsafe_allow_html=True)
