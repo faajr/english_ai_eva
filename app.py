@@ -118,9 +118,10 @@ st.markdown("""
 # API Key Configuration in Sidebar
 with st.sidebar:
     st.markdown("### ⚙️ API Configuration")
-    gemini_key = st.text_input("Gemini API Key", type="password", value=st.session_state.get("GEMINI_API_KEY", ""))
-    if gemini_key:
-        st.session_state["GEMINI_API_KEY"] = gemini_key
+    
+    openrouter_key = st.text_input("OpenRouter API Key (For AI Evaluation)", type="password", value=st.session_state.get("OPENROUTER_API_KEY", ""))
+    if openrouter_key:
+        st.session_state["OPENROUTER_API_KEY"] = openrouter_key
         
     openai_key = st.text_input("OpenAI API Key (Optional for STT)", type="password", value=st.session_state.get("OPENAI_API_KEY", ""))
     if openai_key:
