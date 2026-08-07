@@ -6,13 +6,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-import streamlit as st
-
 
 def get_openrouter_client():
-    api_key = st.session_state.get("OPENROUTER_API_KEY") or os.environ.get("OPENROUTER_API_KEY")
+    api_key = os.environ.get("OPENROUTER_API_KEY")
     if not api_key:
-        return None, "API key is empty."
+        return None, "OPENROUTER_API_KEY not found in environment / Streamlit Secrets."
     try:
         client = OpenAI(
             base_url="https://openrouter.ai/api/v1",
@@ -24,9 +22,9 @@ def get_openrouter_client():
 
 
 def get_groq_client():
-    api_key = st.session_state.get("GROQ_API_KEY") or os.environ.get("GROQ_API_KEY")
+    api_key = os.environ.get("GROQ_API_KEY")
     if not api_key:
-        return None, "API key is empty."
+        return None, "GROQ_API_KEY not found in environment / Streamlit Secrets."
     try:
         client = Groq(api_key=api_key)
         return client, None
