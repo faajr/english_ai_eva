@@ -291,252 +291,51 @@ st.markdown("""
     section.main > div { position: relative; z-index: 1; }
 
 
-    /* ===== Custom sidebar details ===== */
-    .sidebar-brand {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        padding: 6px 4px 24px 4px;
-        margin-bottom: 2px;
-    }
-
-    .brand-icon {
-        width: 40px;
-        height: 40px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 12px;
-        font-size: 22px;
-        background: linear-gradient(135deg, rgba(0,245,255,.18), rgba(168,85,247,.22));
-        border: 1px solid rgba(0,245,255,.45);
-        box-shadow: 0 0 18px rgba(0,245,255,.18);
-    }
-
-    .brand-title {
-        font-family: 'Orbitron', sans-serif;
-        font-size: 1.02rem;
-        font-weight: 700;
-        line-height: 1.2;
-        background: linear-gradient(90deg, var(--neon-cyan), #60a5fa, var(--neon-purple));
-        -webkit-background-clip: text;
-        background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-
-    .brand-subtitle {
-        color: #94a3b8;
-        font-size: .72rem;
-        margin-top: 5px;
-        letter-spacing: .4px;
-    }
-
-    .sidebar-section-label,
+    /* ===== Custom sidebar model/API cards ===== */
     .sidebar-model-title {
+        margin: 24px 0 12px 4px;
         color: #94a3b8;
-        font-size: .68rem;
+        font-size: 0.85rem;
         font-weight: 700;
-        letter-spacing: 1px;
-        margin: 4px 8px 10px;
-        text-transform: uppercase;
+        letter-spacing: 1.5px;
     }
-
-    .sidebar-model-title {
-        margin-top: 20px;
-        margin-bottom: 10px;
-    }
-
     .sidebar-model-card {
-        border: 1px solid rgba(148,163,184,.38);
-        border-radius: 13px;
-        padding: 13px;
-        background: linear-gradient(145deg, rgba(15,23,42,.72), rgba(2,6,23,.48));
-        box-shadow: inset 0 0 20px rgba(59,130,246,.035);
+        padding: 18px;
+        border-radius: 18px;
+        border: 1px solid rgba(148,163,184,.35);
+        background: linear-gradient(145deg, rgba(15,23,42,.85), rgba(8,15,30,.75));
+        box-shadow: 0 10px 30px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.03);
     }
-
     .sidebar-model-heading {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        color: var(--neon-cyan);
-        font-weight: 700;
-        font-size: .84rem;
-        margin-bottom: 13px;
+        display: flex; align-items: center; gap: 10px; margin-bottom: 26px;
+        color: #00f5ff; font-size: 1.05rem; font-weight: 700;
     }
-
-    .model-icon {
-        font-size: 17px;
-    }
-
-    .model-item {
-        padding: 2px 0;
-    }
-
-    .model-name {
-        color: #e2e8f0;
-        font-weight: 650;
-        font-size: .78rem;
-    }
-
-    .model-desc {
-        color: #94a3b8;
-        font-size: .72rem;
-        margin-top: 7px;
-        line-height: 1.45;
-    }
-
-    .model-link {
-        color: #60a5fa;
-        text-decoration: underline;
-        text-underline-offset: 2px;
-    }
-
-    .model-divider {
-        height: 1px;
-        margin: 13px 0;
-        background: linear-gradient(90deg, transparent, rgba(148,163,184,.25), transparent);
-    }
-
-    .api-title {
-        margin-top: 18px;
-    }
-
+    .model-icon { font-size: 1.1rem; }
+    .model-item { padding: 4px 0; }
+    .model-name { color: #e6f1ff; font-size: .95rem; font-weight: 700; margin-bottom: 8px; }
+    .model-desc { color: #94a3b8; font-size: .82rem; line-height: 1.5; }
+    .model-link { color: #3b82f6; text-decoration: underline; }
+    .model-divider { height: 1px; margin: 18px 0; background: rgba(148,163,184,.2); }
+    .api-title { margin-top: 28px; }
     .sidebar-api-card {
-        border: 1px solid rgba(148,163,184,.25);
-        border-radius: 11px;
-        padding: 9px 12px;
-        background: rgba(15,23,42,.45);
+        padding: 12px 16px; border-radius: 16px; border: 1px solid rgba(148,163,184,.25);
+        background: rgba(15,23,42,.55);
     }
-
-    .api-row {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        color: #cbd5e1;
-        font-size: .72rem;
-        padding: 5px 0;
-    }
-
-    .api-status {
-        width: 17px;
-        height: 17px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        font-size: .68rem;
-        font-weight: 800;
-    }
-
-    .api-status.ok {
-        color: #22c55e;
-        border: 1px solid rgba(34,197,94,.55);
-        background: rgba(34,197,94,.08);
-    }
-
-    .api-status.off {
-        color: #f59e0b;
-        border: 1px solid rgba(245,158,11,.55);
-        background: rgba(245,158,11,.08);
-    }
-
+    .api-row { display:flex; justify-content:space-between; align-items:center; padding: 8px 0; color:#cbd5e1; font-size:.85rem; }
+    .api-status { width: 28px; height: 28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; }
+    .api-status.ok { color:#22c55e; border:1px solid #22c55e; }
+    .api-status.off { color:#f59e0b; border:1px solid #f59e0b; }
     .sidebar-ready {
-        display: flex;
-        gap: 10px;
-        align-items: flex-start;
-        margin-top: 12px;
-        padding: 11px 12px;
-        border: 1px solid rgba(59,130,246,.6);
-        border-radius: 10px;
-        background: linear-gradient(135deg, rgba(37,99,235,.15), rgba(59,130,246,.05));
+        display:flex; gap:12px; align-items:flex-start; margin-top:14px; padding:14px;
+        border-radius:14px; border:1px solid rgba(59,130,246,.55);
+        background: linear-gradient(135deg, rgba(37,99,235,.18), rgba(15,23,42,.55));
     }
-
-    .ready-icon {
-        color: #38bdf8;
-        font-size: 17px;
-        line-height: 1.2;
-    }
-
-    .ready-title {
-        color: #e2e8f0;
-        font-weight: 700;
-        font-size: .73rem;
-    }
-
-    .ready-desc {
-        color: #94a3b8;
-        font-size: .66rem;
-        margin-top: 4px;
-        line-height: 1.35;
-    }
-
-    .sidebar-warning {
-        border-color: rgba(245,158,11,.5);
-        background: rgba(245,158,11,.06);
-    }
-
-    .sidebar-warning .ready-icon {
-        color: #f59e0b;
-    }
-
-    .sidebar-footer {
-        margin: 22px 4px 4px;
-        padding-top: 17px;
-        border-top: 1px solid rgba(148,163,184,.18);
-    }
-
-    .footer-powered {
-        color: #cbd5e1;
-        font-size: .74rem;
-        margin-bottom: 7px;
-    }
-
-    .footer-copy {
-        color: #64748b;
-        font-size: .63rem;
-    }
-
-    /* Make native Streamlit navigation match the reference sidebar */
-    [data-testid="stSidebarNav"] {
-        padding-bottom: 2px !important;
-    }
-
-    [data-testid="stSidebarNav"] ul {
-        gap: 3px !important;
-    }
-
-    [data-testid="stSidebarNav"] li a {
-        min-height: 38px !important;
-        padding: 7px 10px !important;
-        color: #dbeafe !important;
-        font-size: .86rem !important;
-        border: 1px solid transparent !important;
-    }
-
-    [data-testid="stSidebarNav"] li a[aria-current="page"] {
-        background: linear-gradient(90deg, rgba(37,99,235,.28), rgba(59,130,246,.10)) !important;
-        border-color: rgba(37,99,235,.75) !important;
-        box-shadow: inset 0 0 18px rgba(37,99,235,.08);
-    }
-
-    [data-testid="stSidebarNav"] li a[aria-current="page"] span {
-        color: #ffffff !important;
-    }
+    .ready-icon { color:#38bdf8; font-size:1.15rem; font-weight:800; }
+    .ready-title { color:#e6f1ff; font-weight:700; font-size:.84rem; }
+    .ready-desc { color:#94a3b8; font-size:.75rem; margin-top:3px; }
+    .sidebar-warning { border-color: rgba(245,158,11,.5); }
 
 </style>
-""", unsafe_allow_html=True)
-
-
-# ===== Custom Sidebar Header =====
-st.sidebar.markdown("""
-<div class="sidebar-brand">
-    <div class="brand-icon">🤖</div>
-    <div>
-        <div class="brand-title">AI English Evaluator</div>
-        <div class="brand-subtitle">Write. Speak. Improve.</div>
-    </div>
-</div>
-<div class="sidebar-section-label">MENU</div>
 """, unsafe_allow_html=True)
 
 # Define Pages
@@ -555,53 +354,28 @@ pg = st.navigation(
 )
 
 
+
 # ===== Sidebar AI / API Details =====
 openrouter_ok = bool(os.environ.get("OPENROUTER_API_KEY"))
 groq_ok = bool(os.environ.get("GROQ_API_KEY"))
 
 st.sidebar.markdown("""
 <div class="sidebar-model-title">AI MODEL YANG DIGUNAKAN</div>
-
 <div class="sidebar-model-card">
     <div class="sidebar-model-heading">
         <span class="model-icon">🤖</span>
         <span>AI Model yang Digunakan</span>
     </div>
-
-   st.sidebar.markdown("""
-<div class="sidebar-model-title">AI MODEL YANG DIGUNAKAN</div>
-
-<div class="sidebar-model-card">
-
-    <div class="sidebar-model-heading">
-        <span class="model-icon">🤖</span>
-        <span>AI Model yang Digunakan</span>
-    </div>
-
     <div class="model-item">
         <div class="model-name">🧠 &nbsp;LLM Evaluasi</div>
-        <div class="model-desc">
-            Gemini 2.5 Pro via
-            <span class="model-link">OpenRouter</span>
-        </div>
+        <div class="model-desc">Gemini 2.5 Pro via <span class="model-link">OpenRouter</span></div>
     </div>
-
     <div class="model-divider"></div>
-
     <div class="model-item">
         <div class="model-name">🎙️ &nbsp;Speech-to-Text</div>
-        <div class="model-desc">
-            Whisper Large v3 via
-            <span class="model-link">Groq</span>
-        </div>
+        <div class="model-desc">Whisper Large v3 via <span class="model-link">Groq</span></div>
     </div>
-
 </div>
-
-<div class="sidebar-model-title api-title">STATUS API</div>
-""", unsafe_allow_html=True)
-</div>
-
 <div class="sidebar-model-title api-title">STATUS API</div>
 """, unsafe_allow_html=True)
 
@@ -609,11 +383,11 @@ api_status_html = f"""
 <div class="sidebar-api-card">
     <div class="api-row">
         <span>OpenRouter API</span>
-        <span class="api-status {'ok' if openrouter_ok else 'off'}">{"✓" if openrouter_ok else "!"}</span>
+        <span class="api-status {'ok' if openrouter_ok else 'off'}">{'✓' if openrouter_ok else '!'}</span>
     </div>
     <div class="api-row">
         <span>Groq API</span>
-        <span class="api-status {'ok' if groq_ok else 'off'}">{"✓" if groq_ok else "!"}</span>
+        <span class="api-status {'ok' if groq_ok else 'off'}">{'✓' if groq_ok else '!'}</span>
     </div>
 </div>
 """
@@ -635,17 +409,10 @@ else:
         <div class="ready-icon">!</div>
         <div>
             <div class="ready-title">API belum lengkap</div>
-            <div class="ready-desc">Konfigurasi API key di Streamlit Secrets.</div>
+            <div class="ready-desc">Periksa OPENROUTER_API_KEY dan GROQ_API_KEY.</div>
         </div>
     </div>
     """, unsafe_allow_html=True)
-
-st.sidebar.markdown("""
-<div class="sidebar-footer">
-    <div class="footer-powered">✦ &nbsp; AI Powered</div>
-    <div class="footer-copy">© 2025 AI English Evaluator</div>
-</div>
-""", unsafe_allow_html=True)
 
 # Run navigation
 pg.run()
