@@ -19,13 +19,13 @@ col1, col2, col3, col4 = st.columns(4)
 with col1:
     with st.container(border=True):
         st.markdown("### ✍️")
-        st.markdown("**Writing Evaluation**")
+        st.markdown("**Writing**")
         st.caption("Feedback instan Grammar, Vocabulary & Coherence.")
 
 with col2:
     with st.container(border=True):
         st.markdown("### 🎙️")
-        st.markdown("**Speaking Evaluation**")
+        st.markdown("**Speaking**")
         st.caption("Rekam / upload audio → dinilai Fluency, Grammar & Vocabulary.")
 
 with col3:
