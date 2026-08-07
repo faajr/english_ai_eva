@@ -3,12 +3,32 @@ import os
 
 # --- Hero ---
 st.title("🎓 AI English Writing & Speaking Evaluator")
-st.markdown("### Selamat datang di tutor bahasa Inggris AI pribadimu!")
-st.markdown(
-    "Aplikasi ini menggunakan Large Language Model (LLM) canggih untuk membantu kamu "
-    "meningkatkan kemampuan bahasa Inggris — **Writing** dan **Speaking**, lengkap dengan "
-    "feedback instan dan riwayat progresmu."
-)
+st.markdown<div class="hero">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap;">
+                <div style="flex:1; min-width:260px;">
+                    <div style="display:inline-block; padding:6px 12px; border-radius:999px; background:rgba(96,165,250,0.18); border:1px solid rgba(96,165,250,0.35); color:#bfdbfe; font-size:0.85rem; font-weight:700; margin-bottom:16px;">
+                        ⚡ NEXT-GEN AI EVALUATION
+                    </div>
+                    <h1 style="font-size:3rem; line-height:1.05; margin:0 0 12px 0;">AI English Writing &amp; Speaking Evaluator</h1>
+                    <p style="font-size:1.05rem; color:#cbd5e1; margin:0 0 22px 0; max-width:720px;">
+                        Evaluate grammar, vocabulary, fluency, and speaking performance with a futuristic AI dashboard designed for modern learners.
+                    </p>
+                    <div style="display:flex; gap:12px; flex-wrap:wrap;">
+                        <div style="padding:10px 14px; border-radius:14px; background:rgba(15,23,42,0.55); border:1px solid rgba(255,255,255,0.08); color:#e2e8f0; font-weight:600;">🧠 Gemini AI</div>
+                        <div style="padding:10px 14px; border-radius:14px; background:rgba(15,23,42,0.55); border:1px solid rgba(255,255,255,0.08); color:#e2e8f0; font-weight:600;">🎤 Whisper STT</div>
+                        <div style="padding:10px 14px; border-radius:14px; background:rgba(15,23,42,0.55); border:1px solid rgba(255,255,255,0.08); color:#e2e8f0; font-weight:600;">📊 Smart Analytics</div>
+                    </div>
+                </div>
+                <div style="width:260px; min-width:220px;">
+                    <div style="background:rgba(15,23,42,0.55); border:1px solid rgba(255,255,255,0.10); border-radius:24px; padding:24px; text-align:center; box-shadow:0 0 30px rgba(96,165,250,0.18);">
+                        <div style="font-size:3rem; margin-bottom:10px;">🚀</div>
+                        <div style="font-size:1.1rem; font-weight:700; color:#f8fafc;">Ready to Evaluate</div>
+                        <div style="color:#94a3b8; margin-top:6px;">Writing • Speaking • History</div>
+                        <div style="margin-top:18px; padding:10px 12px; border-radius:14px; background:linear-gradient(135deg, rgba(37,99,235,0.25), rgba(139,92,246,0.25)); border:1px solid rgba(255,255,255,0.10); color:#dbeafe; font-weight:700;">⚡ AI Powered</div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 st.markdown("<br>", unsafe_allow_html=True)
 
