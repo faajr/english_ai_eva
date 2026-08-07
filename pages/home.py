@@ -68,86 +68,108 @@ if openrouter_ok and groq_ok:
     st.success("✅ Aplikasi siap digunakan!")
 
     # --- STATUS API ---
-    st.markdown("""
-    <div style="
-        text-align:center;
-        font-size:0.85rem;
-        font-weight:700;
-        color:#94a3b8;
-        margin:18px 0 10px 0;
-        letter-spacing:1px;
-    ">
-        STATUS API
+st.markdown("""
+<style>
+.api-title-custom {
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: #94a3b8;
+    letter-spacing: 1px;
+    margin: 18px 0 12px 0;
+}
+
+.api-status-box {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 28px;
+    padding: 16px 20px;
+    border-radius: 16px;
+    background: rgba(15, 23, 42, 0.55);
+    border: 1px solid rgba(96, 165, 250, 0.25);
+    box-sizing: border-box;
+}
+
+.api-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    color: #e2e8f0;
+    font-size: 0.95rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.api-dot {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 23px;
+    height: 23px;
+    border-radius: 50%;
+    color: white;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.api-divider {
+    width: 1px;
+    height: 24px;
+    background: rgba(148, 163, 184, 0.25);
+}
+
+@media (max-width: 600px) {
+    .api-status-box {
+        gap: 14px;
+        padding: 14px 10px;
+    }
+
+    .api-item {
+        font-size: 0.82rem;
+    }
+
+    .api-divider {
+        height: 20px;
+    }
+}
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown(
+    '<div class="api-title-custom">STATUS API</div>',
+    unsafe_allow_html=True
+)
+
+openrouter_color = "#22c55e" if openrouter_ok else "#ef4444"
+openrouter_icon = "✓" if openrouter_ok else "!"
+
+groq_color = "#22c55e" if groq_ok else "#ef4444"
+groq_icon = "✓" if groq_ok else "!"
+
+api_status_html = f"""
+<div class="api-status-box">
+    <div class="api-item">
+        <span>OpenRouter API</span>
+        <span class="api-dot" style="background:{openrouter_color};">
+            {openrouter_icon}
+        </span>
     </div>
-    """, unsafe_allow_html=True)
 
-    api_status_html = f"""
-    <div style="
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        gap:16px;
-        width:100%;
-        padding:14px 20px;
-        border-radius:14px;
-        background:rgba(15,23,42,0.55);
-        border:1px solid rgba(96,165,250,0.25);
-    ">
-        <div style="
-            display:flex;
-            align-items:center;
-            gap:8px;
-            color:#e2e8f0;
-            font-weight:600;
-        ">
-            <span>OpenRouter API</span>
-            <span style="
-                display:inline-flex;
-                align-items:center;
-                justify-content:center;
-                width:22px;
-                height:22px;
-                border-radius:50%;
-                background:{'#22c55e' if openrouter_ok else '#ef4444'};
-                color:white;
-                font-size:13px;
-                font-weight:800;
-            ">
-                {'✓' if openrouter_ok else '!'}
-            </span>
-        </div>
+    <div class="api-divider"></div>
 
-        <div style="
-            width:1px;
-            height:24px;
-            background:rgba(148,163,184,0.25);
-        "></div>
-
-        <div style="
-            display:flex;
-            align-items:center;
-            gap:8px;
-            color:#e2e8f0;
-            font-weight:600;
-        ">
-            <span>Groq API</span>
-            <span style="
-                display:inline-flex;
-                align-items:center;
-                justify-content:center;
-                width:22px;
-                height:22px;
-                border-radius:50%;
-                background:{'#22c55e' if groq_ok else '#ef4444'};
-                color:white;
-                font-size:13px;
-                font-weight:800;
-            ">
-                {'✓' if groq_ok else '!'}
-            </span>
-        </div>
+    <div class="api-item">
+        <span>Groq API</span>
+        <span class="api-dot" style="background:{groq_color};">
+            {groq_icon}
+        </span>
     </div>
-    """
+</div>
+"""
+
+st.markdown(api_status_html, unsafe_allow_html=True)
 
     st.markdown(api_status_html, unsafe_allow_html=True)
 
