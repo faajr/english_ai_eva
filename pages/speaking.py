@@ -4,61 +4,104 @@ import time
 from utils.ai_evaluator import speech_to_text, evaluate_speaking
 from db import get_session, Evaluation
 
-st.title("🎙️ Speaking Evaluation")
-st.markdown("Record your voice or upload an audio file to get feedback on your fluency, grammar, and vocabulary.")
+# --- Sample Audio Files ---
+# os.getcwd() returns the app root on both local and Streamlit Cloud
+SAMPLE_DIR = os.path.join(os.getcwd(), "data")
 
-# Tabs for input method
-tab1, tab2 = st.tabs(["Record Audio", "Upload Audio"])
+SAMPLE_AUDIOS = {
+    "🎧 Sample Audio 1": "audio1.mp3",
+    "🎧 Sample Audio 2": "audio2.mp3",
+    "🎧 Sample Audio 3": "audio3.mp3",
+    "🎧 Sample Audio 4": "audio4.mp3",
+}
+
+# --- Page Layout ---
+st.title("🎙️ Speaking Evaluation")
+st.markdown("Rekam suaramu atau upload file audio, lalu dapatkan feedback dari AI tentang fluency, grammar, dan vocabulary.")
+
+# Tabs: Record | Upload | Sample
+tab1, tab2, tab3 = st.tabs(["🎤 Rekam Suara", "📂 Upload Audio", "💡 Sample Latihan"])
 
 audio_file = None
+audio_file_bytes = None
+sample_audio_path = None  # Path string for sample files
 
 with tab1:
-    st.markdown("Click the microphone to start recording.")
-    # Streamlit 1.39+ native audio input
-    recorded_audio = st.audio_input("Record your speaking")
+    st.markdown("Klik tombol mikrofon untuk mulai merekam.")
+    recorded_audio = st.audio_input("Rekam suaramu:")
     if recorded_audio:
         audio_file = recorded_audio
 
 with tab2:
-    st.markdown("Upload a pre-recorded audio file (e.g., MP3, WAV, M4A).")
+    st.markdown("Upload file audio kamu (MP3, WAV, M4A, OGG).")
     uploaded_audio = st.file_uploader("Upload Audio", type=["mp3", "wav", "m4a", "ogg"])
     if uploaded_audio:
         audio_file = uploaded_audio
 
+with tab3:
+    st.markdown("#### 💡 Pilih Sample Audio Latihan")
+    st.markdown("Gunakan file audio sample berikut untuk mencoba fitur Speaking Evaluation.")
+    
+    sample_labels = ["– Pilih sample audio –"] + list(SAMPLE_AUDIOS.keys())
+    selected_sample = st.selectbox("Pilih sample:", sample_labels, key="speaking_sample")
+    
+    if selected_sample != "– Pilih sample audio –":
+        fname = SAMPLE_AUDIOS[selected_sample]
+        fpath = os.path.join(SAMPLE_DIR, fname)
+        if os.path.exists(fpath):
+            st.audio(fpath)
+            sample_audio_path = fpath
+            st.success(f"✅ Sample dipilih: **{selected_sample}**")
+        else:
+            st.error(f"File tidak ditemukan: {fname}")
+
+# --- Main Evaluation Logic ---
+st.markdown("---")
+
+# Determine which audio source is active
+has_audio = (audio_file is not None) or (sample_audio_path is not None)
+
 if audio_file is not None:
     st.audio(audio_file)
-    
-    if st.button("Evaluate Audio"):
-        # Save audio temporarily
-        os.makedirs("data/audio", exist_ok=True)
+
+if has_audio:
+    if st.button("🚀 Evaluate Audio"):
+        # Save audio to temp path
+        os.makedirs(os.path.join(SAMPLE_DIR, "audio_uploads"), exist_ok=True)
         timestamp = int(time.time())
-        # Try to get extension, default to .wav
-        ext = ".wav"
-        if hasattr(audio_file, "name"):
-            _, ext = os.path.splitext(audio_file.name)
-            
-        file_path = f"data/audio/audio_{timestamp}{ext}"
-        
-        with open(file_path, "wb") as f:
-            f.write(audio_file.getbuffer())
-            
-        st.info("Audio saved. Starting transcription...")
-        
-        with st.spinner("Transcribing using Whisper..."):
-            stt_result = speech_to_text(file_path)
-            
+
+        if sample_audio_path:
+            # Use sample directly
+            save_path = sample_audio_path
+        else:
+            # Save uploaded/recorded audio
+            ext = ".wav"
+            if hasattr(audio_file, "name"):
+                _, ext = os.path.splitext(audio_file.name)
+                if not ext:
+                    ext = ".wav"
+            save_path = os.path.join(SAMPLE_DIR, "audio_uploads", f"audio_{timestamp}{ext}")
+            with open(save_path, "wb") as f:
+                f.write(audio_file.getbuffer())
+
+        # Step 1: Transcribe
+        with st.spinner("🔤 Mentranskripsi audio dengan Whisper (Groq)..."):
+            stt_result = speech_to_text(save_path)
+
         if "error" in stt_result:
-            st.error(f"Error during transcription: {stt_result['error']}")
+            st.error(f"❌ Error transkripsi: {stt_result['error']}")
         else:
             transcript = stt_result["transcript"]
-            st.markdown("### Transcript")
-            st.write(transcript)
             
-            with st.spinner("Evaluating transcript using AI..."):
+            st.markdown("### 🔤 Hasil Transkripsi")
+            st.write(transcript)
+
+            # Step 2: Evaluate
+            with st.spinner("🤖 AI sedang mengevaluasi speaking kamu..."):
                 result = evaluate_speaking(transcript)
-                
+
             if "error" in result:
-                st.error(f"Error during evaluation: {result['error']}")
+                st.error(f"❌ Error evaluasi: {result['error']}")
             else:
                 # Save to database
                 try:
@@ -66,7 +109,7 @@ if audio_file is not None:
                     new_eval = Evaluation(
                         type="speaking",
                         transcript=transcript,
-                        audio_path=file_path,
+                        audio_path=save_path,
                         grammar_score=result.get("grammar_score", 0),
                         vocabulary_score=result.get("vocabulary_score", 0),
                         fluency_score=result.get("fluency_score", 0),
@@ -77,20 +120,23 @@ if audio_file is not None:
                     db.commit()
                     db.close()
                 except Exception as e:
-                    st.error(f"Failed to save to database: {e}")
-                
+                    st.warning(f"⚠️ Gagal menyimpan ke database: {e}")
+
                 # Display results
-                st.success("Evaluation complete!")
-                
+                st.success("✅ Evaluasi selesai!")
+                st.markdown("---")
+
                 col1, col2, col3, col4 = st.columns(4)
                 with col1:
-                    st.metric("Overall Score", f"{result.get('overall_score', 0)}/100")
+                    st.metric("🏆 Overall", f"{result.get('overall_score', 0)}/100")
                 with col2:
-                    st.metric("Grammar", f"{result.get('grammar_score', 0)}/100")
+                    st.metric("📝 Grammar", f"{result.get('grammar_score', 0)}/100")
                 with col3:
-                    st.metric("Vocabulary", f"{result.get('vocabulary_score', 0)}/100")
+                    st.metric("📚 Vocabulary", f"{result.get('vocabulary_score', 0)}/100")
                 with col4:
-                    st.metric("Fluency", f"{result.get('fluency_score', 0)}/100")
-                    
-                st.markdown("### Feedback")
-                st.info(result.get("feedback", "No feedback provided."))
+                    st.metric("🗣️ Fluency", f"{result.get('fluency_score', 0)}/100")
+
+                st.markdown("### 💬 Feedback AI")
+                st.info(result.get("feedback", "Tidak ada feedback."))
+else:
+    st.info("👆 Pilih salah satu tab di atas: rekam suara, upload file, atau pilih sample latihan.")
