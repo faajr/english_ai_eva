@@ -4,12 +4,11 @@ import os
 # Setup page config (Must be the first Streamlit command)
 st.set_page_config(
     page_title="AI English Evaluator",
-    page_icon="🎓",
+    page_icon="🤖",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# Custom CSS — Premium Glassmorphism + Neon Dashboard
 st.markdown("""
 <style>
     /* Fonts */
