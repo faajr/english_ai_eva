@@ -67,9 +67,6 @@ groq_ok = bool(os.environ.get("GROQ_API_KEY"))
 if openrouter_ok and groq_ok:
     st.success("✅ Aplikasi siap digunakan!")
 
-if openrouter_ok and groq_ok:
-    st.success("✅ Aplikasi siap digunakan!")
-
     # --- STATUS API ---
     st.markdown("""
     <style>
