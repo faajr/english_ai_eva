@@ -3,7 +3,7 @@ import os
 
 # --- Hero ---
 st.title("🎓 AI English Writing & Speaking Evaluator")
-st.markdown<div class="hero">
+st.markdown("""<div class="hero">
             <div style="display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap;">
                 <div style="flex:1; min-width:260px;">
                     <div style="display:inline-block; padding:6px 12px; border-radius:999px; background:rgba(96,165,250,0.18); border:1px solid rgba(96,165,250,0.35); color:#bfdbfe; font-size:0.85rem; font-weight:700; margin-bottom:16px;">
@@ -28,9 +28,7 @@ st.markdown<div class="hero">
                     </div>
                 </div>
             </div>
-        </div>
-
-st.markdown("<br>", unsafe_allow_html=True)
+        </div>""", unsafe_allow_html=True)
 
 # --- Feature cards ---
 st.markdown("#### ✨ Fitur Utama")
