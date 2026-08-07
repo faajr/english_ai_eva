@@ -233,8 +233,7 @@ st.sidebar.markdown(api_status_html, unsafe_allow_html=True)
 
 st.markdown("""
 <div class="hero">
-    <div style="display:flex; justify-content:space-between; align-items:center;
-                gap:24px; flex-wrap:wrap;">
+    <div style="display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap;">
 
         <div style="flex:1; min-width:260px;">
 
@@ -259,6 +258,7 @@ st.markdown("""
             </p>
 
             <div style="display:flex; gap:12px; flex-wrap:wrap;">
+
                 <div style="padding:10px 14px; border-radius:14px;
                             background:rgba(15,23,42,0.55);
                             border:1px solid rgba(255,255,255,0.08);
@@ -279,19 +279,25 @@ st.markdown("""
                             color:#e2e8f0; font-weight:600;">
                     📊 Smart Analytics
                 </div>
+
             </div>
         </div>
 
         <div style="width:260px; min-width:220px;">
+
             <div style="background:rgba(15,23,42,0.55);
                         border:1px solid rgba(255,255,255,0.10);
-                        border-radius:24px; padding:24px;
+                        border-radius:24px;
+                        padding:24px;
                         text-align:center;
                         box-shadow:0 0 30px rgba(96,165,250,0.18);">
 
-                <div style="font-size:3rem; margin-bottom:10px;">🚀</div>
+                <div style="font-size:3rem; margin-bottom:10px;">
+                    🚀
+                </div>
 
-                <div style="font-size:1.1rem; font-weight:700;
+                <div style="font-size:1.1rem;
+                            font-weight:700;
                             color:#f8fafc;">
                     Ready to Evaluate
                 </div>
@@ -300,7 +306,8 @@ st.markdown("""
                     Writing • Speaking • History
                 </div>
 
-                <div style="margin-top:18px; padding:10px 12px;
+                <div style="margin-top:18px;
+                            padding:10px 12px;
                             border-radius:14px;
                             background:linear-gradient(
                                 135deg,
@@ -308,11 +315,14 @@ st.markdown("""
                                 rgba(139,92,246,0.25)
                             );
                             border:1px solid rgba(255,255,255,0.10);
-                            color:#dbeafe; font-weight:700;">
+                            color:#dbeafe;
+                            font-weight:700;">
                     ⚡ AI Powered
                 </div>
+
             </div>
         </div>
+
     </div>
 </div>
 """, unsafe_allow_html=True)
