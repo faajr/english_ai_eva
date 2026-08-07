@@ -32,6 +32,14 @@ if "writing_textarea" not in st.session_state:
     st.session_state["writing_textarea"] = ""
 if "selected_sample_prev" not in st.session_state:
     st.session_state["selected_sample_prev"] = ""
+if "clear_writing" not in st.session_state:
+    st.session_state["clear_writing"] = False
+
+# Clear flag must be handled BEFORE the textarea widget is rendered
+if st.session_state["clear_writing"]:
+    st.session_state["writing_textarea"] = ""
+    st.session_state["selected_sample_prev"] = ""
+    st.session_state["clear_writing"] = False
 
 # --- Sample Picker ---
 st.markdown("#### 💡 Gunakan Sample Latihan")
@@ -62,8 +70,7 @@ with col_btn1:
     evaluate_clicked = st.button("🚀 Evaluate")
 with col_btn2:
     if st.button("🗑️ Clear"):
-        st.session_state["writing_textarea"] = ""
-        st.session_state["selected_sample_prev"] = ""
+        st.session_state["clear_writing"] = True
         st.rerun()
 
 # --- Evaluation ---
