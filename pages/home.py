@@ -59,39 +59,3 @@ with col4:
         st.caption("Riwayat evaluasi tersimpan otomatis, export ke CSV.")
 
 st.markdown("<br>", unsafe_allow_html=True)
-
-# --- API key status ---
-openrouter_ok = bool(os.environ.get("OPENROUTER_API_KEY"))
-groq_ok = bool(os.environ.get("GROQ_API_KEY"))
-
-if openrouter_ok and groq_ok:
-    st.success("✅ Aplikasi siap digunakan!")
-    st.info("")
-else:
-    st.warning("⚠️ API Key belum dikonfigurasi. Aplikasi belum bisa melakukan evaluasi.")
-    with st.expander("📋 Cara mengisi API Key di Streamlit Cloud", expanded=True):
-        st.markdown("""
-        **Langkah-langkah:**
-
-        1. Buka dashboard aplikasimu di [share.streamlit.io](https://share.streamlit.io)
-        2. Klik tombol **⋮** (titik tiga) di pojok kanan atas aplikasimu → pilih **Settings**
-        3. Klik tab **Secrets**
-        4. Tambahkan API key berikut:
-
-        ```toml
-        OPENROUTER_API_KEY = "sk-or-v1-xxxxxxxxxxxxxxxx"
-        GROQ_API_KEY = "gsk_xxxxxxxxxxxxxxxx"
-        ```
-
-        5. Klik **Save** → aplikasi akan restart otomatis.
-
-        ---
-
-        **Cara mendapatkan API Key:**
-
-        🔑 **OpenRouter** (untuk evaluasi AI — gratis):
-        - Buka [openrouter.ai](https://openrouter.ai) → Login → menu **Keys** → **Create Key**
-
-        🎙️ **Groq** (untuk Speech-to-Text — gratis):
-        - Buka [console.groq.com](https://console.groq.com) → Login → **API Keys** → **Create API Key**
-        """)
