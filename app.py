@@ -398,8 +398,7 @@ if openrouter_ok and groq_ok:
     <div class="sidebar-ready">
         <div class="ready-icon">ⓘ</div>
         <div>
-            <div class="ready-title">Semua sistem siap digunakan!</div>
-            <div class="ready-desc">Pilih menu di atas untuk mulai evaluasi.</div>
+            <div class="ready-title">Pilih menu di atas untuk mulai evaluasi.</div>
         </div>
     </div>
     """, unsafe_allow_html=True)
