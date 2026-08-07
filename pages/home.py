@@ -27,9 +27,9 @@ st.markdown("""<div class="hero">
                     </div>
                 </div>
             </div>
+            <br> </br>
         </div>""", unsafe_allow_html=True)
-<br>
-</br>
+
 # --- Feature cards ---
 st.markdown("#### ✨ Fitur Utama")
 col1, col2, col3, col4 = st.columns(4)
