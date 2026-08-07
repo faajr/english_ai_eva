@@ -8,12 +8,23 @@ from db import get_session, Evaluation
 # os.getcwd() returns the app root on both local and Streamlit Cloud
 SAMPLE_DIR = os.path.join(os.getcwd(), "data")
 
-SAMPLE_AUDIOS = {
-    "🎧 Sample Audio 1": "audio1.mp3",
-    "🎧 Sample Audio 2": "audio2.mp3",
-    "🎧 Sample Audio 3": "audio3.mp3",
-    "🎧 Sample Audio 4": "audio4.mp3",
-}
+AUDIO_EXTENSIONS = (".mp3", ".wav", ".m4a", ".ogg", ".flac")
+
+def load_sample_audios():
+    """Auto-scan folder data/ untuk semua file audio"""
+    samples = {}
+    if not os.path.exists(SAMPLE_DIR):
+        return samples
+    audio_files = sorted([
+        f for f in os.listdir(SAMPLE_DIR)
+        if f.lower().endswith(AUDIO_EXTENSIONS)
+    ])
+    for fname in audio_files:
+        label = f"🎧 {os.path.splitext(fname)[0]}"  # nama file tanpa ekstensi
+        samples[label] = os.path.join(SAMPLE_DIR, fname)
+    return samples
+
+SAMPLE_AUDIOS = load_sample_audios()
 
 # --- Page Layout ---
 st.title("🎙️ Speaking Evaluation")
@@ -41,19 +52,22 @@ with tab2:
 with tab3:
     st.markdown("#### 💡 Pilih Sample Audio Latihan")
     st.markdown("Gunakan file audio sample berikut untuk mencoba fitur Speaking Evaluation.")
-    
-    sample_labels = ["– Pilih sample audio –"] + list(SAMPLE_AUDIOS.keys())
-    selected_sample = st.selectbox("Pilih sample:", sample_labels, key="speaking_sample")
-    
-    if selected_sample != "– Pilih sample audio –":
-        fname = SAMPLE_AUDIOS[selected_sample]
-        fpath = os.path.join(SAMPLE_DIR, fname)
-        if os.path.exists(fpath):
-            st.audio(fpath)
-            sample_audio_path = fpath
-            st.success(f"✅ Sample dipilih: **{selected_sample}**")
-        else:
-            st.error(f"File tidak ditemukan: {fname}")
+
+    if not SAMPLE_AUDIOS:
+        st.warning(f"⚠️ Tidak ada file audio di folder `data/`. (Path: `{SAMPLE_DIR}`)")
+    else:
+        sample_labels = ["– Pilih sample audio –"] + list(SAMPLE_AUDIOS.keys())
+        selected_sample = st.selectbox("Pilih sample:", sample_labels, key="speaking_sample")
+
+        if selected_sample != "– Pilih sample audio –":
+            fpath = SAMPLE_AUDIOS[selected_sample]  # sudah full path
+            if os.path.exists(fpath):
+                st.audio(fpath)
+                sample_audio_path = fpath
+                st.success(f"✅ Sample dipilih: **{selected_sample}**")
+            else:
+                st.error(f"File tidak ditemukan: {fpath}")
+
 
 # --- Main Evaluation Logic ---
 st.markdown("---")

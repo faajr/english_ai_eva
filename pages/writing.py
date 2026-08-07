@@ -7,18 +7,16 @@ import os
 SAMPLE_DIR = os.path.join(os.getcwd(), "data")
 
 def load_sample_texts():
+    """Auto-scan folder data/ untuk semua file .txt"""
     samples = {}
-    sample_files = {
-        "📖 Sample 1 – Future Plans": "text1.txt",
-        "🌴 Sample 2 – Bali & Lombok": "text2.txt",
-        "🚗 Sample 3 – Daily Routine": "text3.txt",
-        "🛒 Sample 4 – At the Grocery Store": "text4.txt",
-    }
-    for label, fname in sample_files.items():
+    if not os.path.exists(SAMPLE_DIR):
+        return samples
+    txt_files = sorted([f for f in os.listdir(SAMPLE_DIR) if f.endswith(".txt")])
+    for fname in txt_files:
+        label = f"📄 {os.path.splitext(fname)[0]}"  # nama file tanpa ekstensi
         fpath = os.path.join(SAMPLE_DIR, fname)
-        if os.path.exists(fpath):
-            with open(fpath, "r", encoding="utf-8", errors="ignore") as f:
-                samples[label] = f.read().strip()
+        with open(fpath, "r", encoding="utf-8", errors="ignore") as f:
+            samples[label] = f.read().strip()
     return samples
 
 SAMPLE_TEXTS = load_sample_texts()
