@@ -4,7 +4,6 @@ from db import get_session, Evaluation
 import os
 
 # --- Load Sample Texts ---
-# os.getcwd() returns the app root on both local and Streamlit Cloud
 SAMPLE_DIR = os.path.join(os.getcwd(), "data")
 
 def load_sample_texts():
@@ -28,39 +27,46 @@ SAMPLE_TEXTS = load_sample_texts()
 st.title("✍️ Writing Evaluation")
 st.markdown("Tulis atau paste teks bahasa Inggrismu untuk mendapatkan feedback dari AI.")
 
-# Initialize input text (must be before sample picker)
-if "writing_input" not in st.session_state:
-    st.session_state["writing_input"] = ""
+# --- Initialize session state ---
+if "writing_textarea" not in st.session_state:
+    st.session_state["writing_textarea"] = ""
+if "selected_sample_prev" not in st.session_state:
+    st.session_state["selected_sample_prev"] = ""
 
-# Sample Picker
+# --- Sample Picker ---
 st.markdown("#### 💡 Gunakan Sample Latihan")
 
 if not SAMPLE_TEXTS:
-    st.warning(f"⚠️ Sample teks tidak ditemukan di folder `data/`. (Path: `{SAMPLE_DIR}`)")
+    st.warning(f"⚠️ Sample teks tidak ditemukan. (Path: `{SAMPLE_DIR}`)")
 else:
     sample_labels = ["– Pilih sample teks –"] + list(SAMPLE_TEXTS.keys())
-    selected_sample = st.selectbox("Pilih sample:", sample_labels)
+    selected_sample = st.selectbox("Pilih sample:", sample_labels, key="sample_selectbox")
 
-    # Fill textarea when sample is selected
-    if selected_sample != "– Pilih sample teks –":
-        st.session_state["writing_input"] = SAMPLE_TEXTS[selected_sample]
+    # Detect new selection → update textarea + rerun to reflect change
+    if selected_sample != "– Pilih sample teks –" and selected_sample != st.session_state["selected_sample_prev"]:
+        st.session_state["writing_textarea"] = SAMPLE_TEXTS[selected_sample]
+        st.session_state["selected_sample_prev"] = selected_sample
+        st.rerun()
 
+# --- Text Area (key controls its own state) ---
 input_text = st.text_area(
     "Teks kamu:",
-    value=st.session_state["writing_input"],
-    height=200,
-    placeholder="Mulai ketik atau pilih sample di atas...",
+    height=220,
+    placeholder="Mulai ketik di sini atau pilih sample latihan di atas...",
     key="writing_textarea"
 )
 
+# --- Buttons ---
 col_btn1, col_btn2 = st.columns([1, 5])
 with col_btn1:
     evaluate_clicked = st.button("🚀 Evaluate")
 with col_btn2:
     if st.button("🗑️ Clear"):
-        st.session_state["writing_input"] = ""
+        st.session_state["writing_textarea"] = ""
+        st.session_state["selected_sample_prev"] = ""
         st.rerun()
 
+# --- Evaluation ---
 if evaluate_clicked:
     if not input_text.strip():
         st.warning("⚠️ Silakan masukkan teks terlebih dahulu.")
