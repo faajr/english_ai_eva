@@ -66,7 +66,6 @@ groq_ok = bool(os.environ.get("GROQ_API_KEY"))
 
 if openrouter_ok and groq_ok:
     st.success("✅ Aplikasi siap digunakan!")
-    st.info("💡 Gunakan menu di sidebar untuk mulai evaluasi Writing atau Speaking.")
 else:
     st.warning("⚠️ API Key belum dikonfigurasi. Aplikasi belum bisa melakukan evaluasi.")
     with st.expander("📋 Cara mengisi API Key di Streamlit Cloud", expanded=True):
