@@ -3,8 +3,8 @@ from sqlalchemy import create_engine, Column, Integer, String, Float, Text, Date
 from sqlalchemy.orm import declarative_base, sessionmaker
 from datetime import datetime
 
-# Define database file path
-DB_PATH = os.path.join(os.path.dirname(__file__), 'data', 'evaluations.db')
+# Define database file path — os.getcwd() is reliable on both local & Streamlit Cloud
+DB_PATH = os.path.join(os.getcwd(), 'data', 'evaluations.db')
 
 # Create engine
 engine = create_engine(f'sqlite:///{DB_PATH}', echo=False)
