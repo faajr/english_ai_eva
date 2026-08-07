@@ -60,26 +60,13 @@ with col4:
 
 st.markdown("<br>", unsafe_allow_html=True)
 
-# --- AI Model info ---
-with st.container(border=True):
-    st.markdown("#### 🤖 AI Model yang Digunakan")
-    m1, m2 = st.columns(2)
-    with m1:
-        st.markdown("**🧠 LLM Evaluasi**")
-        st.caption("Gemini 2.5 Pro via [OpenRouter](https://openrouter.ai)")
-    with m2:
-        st.markdown("**🎙️ Speech-to-Text**")
-        st.caption("Whisper Large v3 via [Groq](https://console.groq.com)")
-
-st.markdown("<br>", unsafe_allow_html=True)
-
 # --- API key status ---
 openrouter_ok = bool(os.environ.get("OPENROUTER_API_KEY"))
 groq_ok = bool(os.environ.get("GROQ_API_KEY"))
 
 if openrouter_ok and groq_ok:
     st.success("✅ Aplikasi siap digunakan!")
-    st.info("💡 Gunakan menu di sidebar untuk mulai evaluasi Writing atau Speaking.")
+    st.info("")
 else:
     st.warning("⚠️ API Key belum dikonfigurasi. Aplikasi belum bisa melakukan evaluasi.")
     with st.expander("📋 Cara mengisi API Key di Streamlit Cloud", expanded=True):
