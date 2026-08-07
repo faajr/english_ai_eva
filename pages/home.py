@@ -2,7 +2,6 @@ import streamlit as st
 import os
 
 # --- Hero ---
-st.title("🎓 AI English Writing & Speaking Evaluator")
 st.markdown("""<div class="hero">
             <div style="display:flex; justify-content:space-between; align-items:center; gap:24px; flex-wrap:wrap;">
                 <div style="flex:1; min-width:260px;">
