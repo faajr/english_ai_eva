@@ -92,6 +92,7 @@ def speech_to_text(audio_file_path: str):
                 model="whisper-large-v3",
                 file=audio_file,
                 response_format="text",
+                language="en",   # Force English transcription
             )
         return {"transcript": transcription}
     except Exception as e:
