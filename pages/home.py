@@ -66,7 +66,91 @@ groq_ok = bool(os.environ.get("GROQ_API_KEY"))
 
 if openrouter_ok and groq_ok:
     st.success("✅ Aplikasi siap digunakan!")
-    st.info("")
+
+    # --- STATUS API ---
+    st.markdown("""
+    <div style="
+        text-align:center;
+        font-size:0.85rem;
+        font-weight:700;
+        color:#94a3b8;
+        margin:18px 0 10px 0;
+        letter-spacing:1px;
+    ">
+        STATUS API
+    </div>
+    """, unsafe_allow_html=True)
+
+    api_status_html = f"""
+    <div style="
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        gap:16px;
+        width:100%;
+        padding:14px 20px;
+        border-radius:14px;
+        background:rgba(15,23,42,0.55);
+        border:1px solid rgba(96,165,250,0.25);
+    ">
+        <div style="
+            display:flex;
+            align-items:center;
+            gap:8px;
+            color:#e2e8f0;
+            font-weight:600;
+        ">
+            <span>OpenRouter API</span>
+            <span style="
+                display:inline-flex;
+                align-items:center;
+                justify-content:center;
+                width:22px;
+                height:22px;
+                border-radius:50%;
+                background:{'#22c55e' if openrouter_ok else '#ef4444'};
+                color:white;
+                font-size:13px;
+                font-weight:800;
+            ">
+                {'✓' if openrouter_ok else '!'}
+            </span>
+        </div>
+
+        <div style="
+            width:1px;
+            height:24px;
+            background:rgba(148,163,184,0.25);
+        "></div>
+
+        <div style="
+            display:flex;
+            align-items:center;
+            gap:8px;
+            color:#e2e8f0;
+            font-weight:600;
+        ">
+            <span>Groq API</span>
+            <span style="
+                display:inline-flex;
+                align-items:center;
+                justify-content:center;
+                width:22px;
+                height:22px;
+                border-radius:50%;
+                background:{'#22c55e' if groq_ok else '#ef4444'};
+                color:white;
+                font-size:13px;
+                font-weight:800;
+            ">
+                {'✓' if groq_ok else '!'}
+            </span>
+        </div>
+    </div>
+    """
+
+    st.markdown(api_status_html, unsafe_allow_html=True)
+
 else:
     st.warning("⚠️ API Key belum dikonfigurasi. Aplikasi belum bisa melakukan evaluasi.")
     with st.expander("📋 Cara mengisi API Key di Streamlit Cloud", expanded=True):
