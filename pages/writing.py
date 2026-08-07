@@ -39,37 +39,43 @@ if st.session_state["clear_writing"]:
     st.session_state["selected_sample_prev"] = ""
     st.session_state["clear_writing"] = False
 
-# --- Sample Picker ---
-st.markdown("#### 💡 Gunakan Sample Latihan")
+# --- Input card ---
+with st.container(border=True):
+    st.markdown("#### 💡 Gunakan Sample Latihan")
 
-if not SAMPLE_TEXTS:
-    st.warning(f"⚠️ Sample teks tidak ditemukan. (Path: `{SAMPLE_DIR}`)")
-else:
-    sample_labels = ["– Pilih sample teks –"] + list(SAMPLE_TEXTS.keys())
-    selected_sample = st.selectbox("Pilih sample:", sample_labels, key="sample_selectbox")
+    if not SAMPLE_TEXTS:
+        st.warning(f"⚠️ Sample teks tidak ditemukan. (Path: `{SAMPLE_DIR}`)")
+    else:
+        sample_labels = ["– Pilih sample teks –"] + list(SAMPLE_TEXTS.keys())
+        selected_sample = st.selectbox("Pilih sample:", sample_labels, key="sample_selectbox")
 
-    # Detect new selection → update textarea + rerun to reflect change
-    if selected_sample != "– Pilih sample teks –" and selected_sample != st.session_state["selected_sample_prev"]:
-        st.session_state["writing_textarea"] = SAMPLE_TEXTS[selected_sample]
-        st.session_state["selected_sample_prev"] = selected_sample
-        st.rerun()
+        # Detect new selection → update textarea + rerun to reflect change
+        if selected_sample != "– Pilih sample teks –" and selected_sample != st.session_state["selected_sample_prev"]:
+            st.session_state["writing_textarea"] = SAMPLE_TEXTS[selected_sample]
+            st.session_state["selected_sample_prev"] = selected_sample
+            st.rerun()
 
-# --- Text Area (key controls its own state) ---
-input_text = st.text_area(
-    "Teks kamu:",
-    height=220,
-    placeholder="Mulai ketik di sini atau pilih sample latihan di atas...",
-    key="writing_textarea"
-)
+    st.markdown("<br>", unsafe_allow_html=True)
 
-# --- Buttons ---
-col_btn1, col_btn2 = st.columns([1, 5])
-with col_btn1:
-    evaluate_clicked = st.button("🚀 Evaluate")
-with col_btn2:
-    if st.button("🗑️ Clear"):
-        st.session_state["clear_writing"] = True
-        st.rerun()
+    # --- Text Area (key controls its own state) ---
+    input_text = st.text_area(
+        "Teks kamu:",
+        height=220,
+        placeholder="Mulai ketik di sini atau pilih sample latihan di atas...",
+        key="writing_textarea"
+    )
+
+    word_count = len(input_text.split()) if input_text.strip() else 0
+    st.caption(f"📊 {word_count} kata")
+
+    # --- Buttons ---
+    col_btn1, col_btn2 = st.columns([1, 5])
+    with col_btn1:
+        evaluate_clicked = st.button("🚀 Evaluate", type="primary", use_container_width=True)
+    with col_btn2:
+        if st.button("🗑️ Clear"):
+            st.session_state["clear_writing"] = True
+            st.rerun()
 
 # --- Evaluation ---
 if evaluate_clicked:
@@ -102,17 +108,19 @@ if evaluate_clicked:
 
             # Display results
             st.success("✅ Evaluasi selesai!")
-            st.markdown("---")
+            st.markdown("<br>", unsafe_allow_html=True)
 
-            col1, col2, col3, col4 = st.columns(4)
-            with col1:
-                st.metric("🏆 Overall", f"{result.get('overall_score', 0)}/100")
-            with col2:
-                st.metric("📝 Grammar", f"{result.get('grammar_score', 0)}/100")
-            with col3:
-                st.metric("📚 Vocabulary", f"{result.get('vocabulary_score', 0)}/100")
-            with col4:
-                st.metric("🔗 Coherence", f"{result.get('coherence_score', 0)}/100")
+            with st.container(border=True):
+                st.markdown("#### 📊 Hasil Evaluasi")
+                col1, col2, col3, col4 = st.columns(4)
+                with col1:
+                    st.metric("🏆 Overall", f"{result.get('overall_score', 0)}/100")
+                with col2:
+                    st.metric("📝 Grammar", f"{result.get('grammar_score', 0)}/100")
+                with col3:
+                    st.metric("📚 Vocabulary", f"{result.get('vocabulary_score', 0)}/100")
+                with col4:
+                    st.metric("🔗 Coherence", f"{result.get('coherence_score', 0)}/100")
 
-            st.markdown("### 💬 Feedback AI")
-            st.info(result.get("feedback", "Tidak ada feedback."))
+                st.markdown("#### 💬 Feedback AI")
+                st.info(result.get("feedback", "Tidak ada feedback."))
