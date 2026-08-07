@@ -118,11 +118,30 @@ st.markdown("""
 # API Key Configuration in Sidebar
 with st.sidebar:
     st.markdown("### ⚙️ API Configuration")
-    
-    openrouter_key = st.text_input("OpenRouter API Key (For AI Evaluation)", type="password", value=st.session_state.get("OPENROUTER_API_KEY", ""))
+
+    openrouter_key = st.text_input(
+        "🔑 OpenRouter API Key",
+        type="password",
+        value=st.session_state.get("OPENROUTER_API_KEY", ""),
+        help="Untuk evaluasi Writing & Speaking. Daftar gratis di openrouter.ai"
+    )
     if openrouter_key:
         st.session_state["OPENROUTER_API_KEY"] = openrouter_key
-        
+
+    groq_key = st.text_input(
+        "🎙️ Groq API Key (STT)",
+        type="password",
+        value=st.session_state.get("GROQ_API_KEY", ""),
+        help="Untuk Speech-to-Text (Whisper gratis). Daftar di console.groq.com"
+    )
+    if groq_key:
+        st.session_state["GROQ_API_KEY"] = groq_key
+
+    if not openrouter_key:
+        st.warning("⚠️ Masukkan OpenRouter API Key")
+    if not groq_key:
+        st.warning("⚠️ Masukkan Groq API Key untuk Speaking")
+
     st.markdown("---")
 
 # Define Pages
