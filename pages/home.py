@@ -28,7 +28,7 @@ st.markdown("""<div class="hero">
                     </div>
                 </div>
             </div>
-            <br></br>
+            <p></p>
         </div>""", unsafe_allow_html=True)
 
 # --- Feature cards ---
