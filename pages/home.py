@@ -32,7 +32,7 @@ with col3:
     with st.container(border=True):
         st.markdown("### 💡")
         st.markdown("**Sample Latihan**")
-        st.caption("4 sample teks & 4 sample audio siap pakai.")
+        st.caption("5 sample teks & 5 sample audio siap pakai.")
 
 with col4:
     with st.container(border=True):
@@ -60,7 +60,7 @@ openrouter_ok = bool(os.environ.get("OPENROUTER_API_KEY"))
 groq_ok = bool(os.environ.get("GROQ_API_KEY"))
 
 if openrouter_ok and groq_ok:
-    st.success("✅ Semua API Key sudah terkonfigurasi. Aplikasi siap digunakan!")
+    st.success("✅ Aplikasi siap digunakan!")
     st.info("💡 Gunakan menu di sidebar untuk mulai evaluasi Writing atau Speaking.")
 else:
     st.warning("⚠️ API Key belum dikonfigurasi. Aplikasi belum bisa melakukan evaluasi.")
