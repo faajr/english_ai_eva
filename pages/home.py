@@ -64,9 +64,54 @@ st.markdown("<br>", unsafe_allow_html=True)
 openrouter_ok = bool(os.environ.get("OPENROUTER_API_KEY"))
 groq_ok = bool(os.environ.get("GROQ_API_KEY"))
 
+```python
+st.markdown("""
+<div class="sidebar-model-title api-title" style="text-align:center;">
+    STATUS API
+</div>
+""", unsafe_allow_html=True)
+
+api_status_html = f"""
+<div class="sidebar-api-card" style="
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:14px;
+    width:100%;
+">
+    <div class="api-row" style="
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:8px;
+    ">
+        <span>OpenRouter API</span>
+        <span class="api-status {'ok' if openrouter_ok else 'off'}">
+            {'✓' if openrouter_ok else '!'}
+        </span>
+    </div>
+
+    <div class="api-row" style="
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:8px;
+    ">
+        <span>Groq API</span>
+        <span class="api-status {'ok' if groq_ok else 'off'}">
+            {'✓' if groq_ok else '!'}
+        </span>
+    </div>
+</div>
+"""
+
+st.markdown(api_status_html, unsafe_allow_html=True)
+```
+
 if openrouter_ok and groq_ok:
     st.success("✅ Aplikasi siap digunakan!")
-    st.info("")
+
+
 else:
     st.warning("⚠️ API Key belum dikonfigurasi. Aplikasi belum bisa melakukan evaluasi.")
     with st.expander("📋 Cara mengisi API Key di Streamlit Cloud", expanded=True):
