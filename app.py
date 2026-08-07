@@ -568,17 +568,38 @@ st.sidebar.markdown("""
         <span>AI Model yang Digunakan</span>
     </div>
 
+   st.sidebar.markdown("""
+<div class="sidebar-model-title">AI MODEL YANG DIGUNAKAN</div>
+
+<div class="sidebar-model-card">
+
+    <div class="sidebar-model-heading">
+        <span class="model-icon">🤖</span>
+        <span>AI Model yang Digunakan</span>
+    </div>
+
     <div class="model-item">
         <div class="model-name">🧠 &nbsp;LLM Evaluasi</div>
-        <div class="model-desc">Gemini 2.5 Pro via <span class="model-link">OpenRouter</span></div>
+        <div class="model-desc">
+            Gemini 2.5 Pro via
+            <span class="model-link">OpenRouter</span>
+        </div>
     </div>
 
     <div class="model-divider"></div>
 
     <div class="model-item">
         <div class="model-name">🎙️ &nbsp;Speech-to-Text</div>
-        <div class="model-desc">Whisper Large v3 via <span class="model-link">Groq</span></div>
+        <div class="model-desc">
+            Whisper Large v3 via
+            <span class="model-link">Groq</span>
+        </div>
     </div>
+
+</div>
+
+<div class="sidebar-model-title api-title">STATUS API</div>
+""", unsafe_allow_html=True)
 </div>
 
 <div class="sidebar-model-title api-title">STATUS API</div>
