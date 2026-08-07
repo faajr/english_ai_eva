@@ -1,23 +1,24 @@
 import streamlit as st
 
 st.title("🎓 AI English Writing & Speaking Evaluator")
-st.markdown("### Welcome to your personal AI English tutor!")
+st.markdown("### Selamat datang di tutor bahasa Inggris AI pribadimu!")
 
 st.markdown("""
-This application uses advanced Large Language Models to help you improve your English skills.
+Aplikasi ini menggunakan Large Language Model (LLM) canggih untuk membantu kamu meningkatkan kemampuan bahasa Inggris secara menyeluruh — Writing dan Speaking.
 
-**Features:**
-- ✍️ **Writing Evaluation:** Get instant feedback on your grammar, vocabulary, and coherence.
-- 🎙️ **Speaking Evaluation:** Practice your speaking and get feedback on your fluency and accuracy (Speech-to-Text powered by Whisper).
-- 🕒 **History Tracking:** Save all your evaluations to track your progress over time.
-- 📊 **Export Data:** Export your scores and feedback to CSV for offline analysis.
+**Fitur Utama:**
+- ✍️ **Writing Evaluation** — Dapatkan feedback instan tentang Grammar, Vocabulary, dan Coherence tulisanmu.
+- 🎙️ **Speaking Evaluation** — Rekam atau upload audio, lalu AI akan mengevaluasi Fluency, Grammar, dan Vocabulary bicaramu.
+- 💡 **Sample Latihan** — Tersedia 4 sample teks dan 4 sample audio untuk langsung dicoba.
+- 🕒 **History** — Semua hasil evaluasi tersimpan otomatis agar kamu bisa memantau progres.
+- 📊 **Export CSV** — Download seluruh riwayat evaluasimu dalam format CSV.
 
-**AI Models Used:**
-- **LLM:** Gemini 2.5 Pro (via Google GenAI)
-- **STT:** Whisper (via OpenAI API)
+**AI Model yang digunakan:**
+- 🤖 **LLM Evaluator:** Gemini 2.5 Pro (via [OpenRouter](https://openrouter.ai))
+- 🎙️ **Speech-to-Text:** Whisper Large v3 (via [Groq](https://console.groq.com) — gratis & cepat)
 
-Navigate using the sidebar to get started!
+---
+> ⚙️ **Sebelum mulai**, pastikan kamu sudah mengisi API Key di halaman **Settings** (menu di sidebar kiri).
+
+💡 **Tip:** Berbicaralah dengan jelas dan natural saat menggunakan fitur Speaking Evaluation untuk hasil terbaik!
 """)
-
-# Decorative element
-st.info("💡 Tip: Try to speak naturally and clearly when using the Speaking Evaluation feature for the best results.")
