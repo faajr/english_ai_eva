@@ -213,10 +213,6 @@ MIT License
 
 If the project is proprietary, replace this section with your appropriate licensing statement.
 
-## 👨‍💻 Author
-
-**Fajar Wijayanto**
-
 AI-powered English learning and evaluation project built with Streamlit.
 
 ---
