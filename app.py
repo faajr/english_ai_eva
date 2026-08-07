@@ -116,22 +116,11 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Sidebar: minimal status hint only (no input fields)
-with st.sidebar:
-    openrouter_ok = bool(st.session_state.get("OPENROUTER_API_KEY") or os.environ.get("OPENROUTER_API_KEY"))
-    groq_ok = bool(st.session_state.get("GROQ_API_KEY") or os.environ.get("GROQ_API_KEY"))
-
-    if not openrouter_ok or not groq_ok:
-        st.warning("⚙️ API Key belum lengkap.\nBuka halaman **Settings** untuk mengisi.")
-    else:
-        st.success("✅ API Key siap digunakan.")
-
 # Define Pages
 home_page = st.Page("pages/home.py", title="Home", icon="🏠", default=True)
 writing_page = st.Page("pages/writing.py", title="Writing Evaluation", icon="✍️")
 speaking_page = st.Page("pages/speaking.py", title="Speaking Evaluation", icon="🎙️")
 history_page = st.Page("pages/history.py", title="History", icon="🕒")
-settings_page = st.Page("pages/settings.py", title="Settings", icon="⚙️")
 
 # Navigation
 pg = st.navigation(
@@ -139,7 +128,6 @@ pg = st.navigation(
         "Main": [home_page],
         "Evaluations": [writing_page, speaking_page],
         "Dashboard": [history_page],
-        "Config": [settings_page],
     }
 )
 
