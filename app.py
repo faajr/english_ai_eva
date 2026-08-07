@@ -1,4 +1,5 @@
 import streamlit as st
+import os
 
 # Setup page config (Must be the first Streamlit command)
 st.set_page_config(
@@ -115,47 +116,30 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# API Key Configuration in Sidebar
+# Sidebar: minimal status hint only (no input fields)
 with st.sidebar:
-    st.markdown("### ⚙️ API Configuration")
+    openrouter_ok = bool(st.session_state.get("OPENROUTER_API_KEY") or os.environ.get("OPENROUTER_API_KEY"))
+    groq_ok = bool(st.session_state.get("GROQ_API_KEY") or os.environ.get("GROQ_API_KEY"))
 
-    openrouter_key = st.text_input(
-        "🔑 OpenRouter API Key",
-        type="password",
-        value=st.session_state.get("OPENROUTER_API_KEY", ""),
-        help="Untuk evaluasi Writing & Speaking. Daftar gratis di openrouter.ai"
-    )
-    if openrouter_key:
-        st.session_state["OPENROUTER_API_KEY"] = openrouter_key
-
-    groq_key = st.text_input(
-        "🎙️ Groq API Key (STT)",
-        type="password",
-        value=st.session_state.get("GROQ_API_KEY", ""),
-        help="Untuk Speech-to-Text (Whisper gratis). Daftar di console.groq.com"
-    )
-    if groq_key:
-        st.session_state["GROQ_API_KEY"] = groq_key
-
-    if not openrouter_key:
-        st.warning("⚠️ Masukkan OpenRouter API Key")
-    if not groq_key:
-        st.warning("⚠️ Masukkan Groq API Key untuk Speaking")
-
-    st.markdown("---")
+    if not openrouter_ok or not groq_ok:
+        st.warning("⚙️ API Key belum lengkap.\nBuka halaman **Settings** untuk mengisi.")
+    else:
+        st.success("✅ API Key siap digunakan.")
 
 # Define Pages
 home_page = st.Page("pages/home.py", title="Home", icon="🏠", default=True)
 writing_page = st.Page("pages/writing.py", title="Writing Evaluation", icon="✍️")
 speaking_page = st.Page("pages/speaking.py", title="Speaking Evaluation", icon="🎙️")
 history_page = st.Page("pages/history.py", title="History", icon="🕒")
+settings_page = st.Page("pages/settings.py", title="Settings", icon="⚙️")
 
 # Navigation
 pg = st.navigation(
     {
         "Main": [home_page],
         "Evaluations": [writing_page, speaking_page],
-        "Dashboard": [history_page]
+        "Dashboard": [history_page],
+        "Config": [settings_page],
     }
 )
 
