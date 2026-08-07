@@ -60,16 +60,22 @@ with col4:
 
 st.markdown("<br>", unsafe_allow_html=True)
 
-# --- API key status ---
-openrouter_ok = bool(os.environ.get("OPENROUTER_API_KEY"))
-groq_ok = bool(os.environ.get("GROQ_API_KEY"))
+<div class="sidebar-model-title api-title">STATUS API</div>
+""", unsafe_allow_html=True)
 
-if openrouter_ok and groq_ok:
-    st.success("✅ Aplikasi siap digunakan!")
-else:
-    st.warning("⚠️ API Key belum dikonfigurasi. Aplikasi belum bisa melakukan evaluasi.")
-    with st.expander("📋 Cara mengisi API Key di Streamlit Cloud", expanded=True):
-        st.markdown("""
+api_status_html = f"""
+<div class="sidebar-api-card">
+    <div class="api-row">
+        <span>OpenRouter API</span>
+        <span class="api-status {'ok' if openrouter_ok else 'off'}">{'✓' if openrouter_ok else '!'}</span>
+    </div>
+    <div class="api-row">
+        <span>Groq API</span>
+        <span class="api-status {'ok' if groq_ok else 'off'}">{'✓' if groq_ok else '!'}</span>
+    </div>
+</div>
+"""
+st.sidebar.markdown(api_status_html, unsafe_allow_html=True)
         **Langkah-langkah:**
 
         1. Buka dashboard aplikasimu di [share.streamlit.io](https://share.streamlit.io)
