@@ -64,26 +64,6 @@ st.markdown("<br>", unsafe_allow_html=True)
 openrouter_ok = bool(os.environ.get("OPENROUTER_API_KEY"))
 groq_ok = bool(os.environ.get("GROQ_API_KEY"))
 
-# --- Sidebar API status ---
-st.sidebar.markdown("""
-<div class="sidebar-model-title api-title">STATUS API</div>
-""", unsafe_allow_html=True)
-
-api_status_html = f"""
-<div class="sidebar-api-card">
-    <div class="api-row">
-        <span>OpenRouter API</span>
-        <span class="api-status {'ok' if openrouter_ok else 'off'}">{'✓' if openrouter_ok else '!'}</span>
-    </div>
-    <div class="api-row">
-        <span>Groq API</span>
-        <span class="api-status {'ok' if groq_ok else 'off'}">{'✓' if groq_ok else '!'}</span>
-    </div>
-</div>
-"""
-
-st.sidebar.markdown(api_status_html, unsafe_allow_html=True)
-
 if openrouter_ok and groq_ok:
     st.success("✅ Aplikasi siap digunakan!")
     st.info("")
