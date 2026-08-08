@@ -203,16 +203,6 @@ Run locally:
 streamlit run app.py
 ```
 
-## 📄 License
-
-Add your preferred license, for example:
-
-```text
-MIT License
-```
-
-If the project is proprietary, replace this section with your appropriate licensing statement.
-
 AI-powered English learning and evaluation project built with Streamlit.
 
 ---
